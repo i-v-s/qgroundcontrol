@@ -302,4 +302,47 @@ Item {
 
     }
 
+    //-- ROS widget
+
+    Row {
+        id:                         rosItem
+        width:                      50
+        height:                     50
+        anchors.bottom:             parent.bottom
+        anchors.horizontalCenter:   parent.horizontalCenter
+        visible:                    true
+        spacing:                    ScreenTools.defaultFontPixelHeight
+
+        RoundButton {
+            id:         mavrosButton
+            //text:       "mavros"
+            enabled:    true
+            visible:    true
+            onClicked: {
+                QGroundControl.rosManager.launch("test")
+
+
+            }
+                //QGroundControl.
+//                _dropButtonsExclusiveGroup.current = null
+//                _flightMap.latitude  = activeVehicle.latitude
+//                _flightMap.longitude = activeVehicle.longitude
+//            }
+        }
+        RoundButton {
+            id:         svoButton
+            //text:       "svo"
+            enabled:    true
+            visible:    true
+
+            /*property var activeVehicle: multiVehicleManager.activeVehicle
+
+            onClicked: {
+                _dropButtonsExclusiveGroup.current = null
+                _flightMap.latitude  = activeVehicle.latitude
+                _flightMap.longitude = activeVehicle.longitude
+            }*/
+        }
+    }
+
 }
