@@ -34,6 +34,7 @@
 #include "MultiVehicleManager.h"
 #include "QGCImageProvider.h"
 #include "UASMessageHandler.h"
+#include "ros/rosmanager.h"
 
 QGCToolbox::QGCToolbox(QGCApplication* app)
     : _audioOutput(NULL)
@@ -49,6 +50,7 @@ QGCToolbox::QGCToolbox(QGCApplication* app)
     , _missionCommands(NULL)
     , _multiVehicleManager(NULL)
     , _uasMessageHandler(NULL)
+    , _rosManager(NULL)
 {
     _audioOutput =              new GAudioOutput(app);
     _autopilotPluginManager =   new AutoPilotPluginManager(app);
@@ -63,6 +65,7 @@ QGCToolbox::QGCToolbox(QGCApplication* app)
     _missionCommands =          new MissionCommands(app);
     _multiVehicleManager =      new MultiVehicleManager(app);
     _uasMessageHandler =        new UASMessageHandler(app);
+    _rosManager =               new ROSManager(app);
 
     _audioOutput->setToolbox(this);
     _autopilotPluginManager->setToolbox(this);
@@ -77,6 +80,7 @@ QGCToolbox::QGCToolbox(QGCApplication* app)
     _missionCommands->setToolbox(this);
     _multiVehicleManager->setToolbox(this);
     _uasMessageHandler->setToolbox(this);
+    _rosManager->setToolbox(this);
 }
 
 QGCToolbox::~QGCToolbox()

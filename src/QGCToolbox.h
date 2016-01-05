@@ -40,6 +40,7 @@ class MultiVehicleManager;
 class QGCApplication;
 class QGCImageProvider;
 class UASMessageHandler;
+class ROSManager;
 
 /// This is used to manage all of our top level services/tools
 class QGCToolbox {
@@ -60,6 +61,7 @@ public:
     MultiVehicleManager*        multiVehicleManager(void)       { return _multiVehicleManager; }
     QGCImageProvider*           imageProvider()                 { return _imageProvider; }
     UASMessageHandler*          uasMessageHandler(void)         { return _uasMessageHandler; }
+    ROSManager*                 rosManager(void)                { return _rosManager; }
 
 private:
     GAudioOutput*               _audioOutput;
@@ -75,6 +77,7 @@ private:
     MissionCommands*            _missionCommands;
     MultiVehicleManager*        _multiVehicleManager;
     UASMessageHandler*          _uasMessageHandler;
+    ROSManager*                 _rosManager;
 };
 
 /// This is the base class for all tools
