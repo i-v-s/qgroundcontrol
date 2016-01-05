@@ -39,6 +39,7 @@ QGroundControlQmlGlobal::QGroundControlQmlGlobal(QGCApplication* app)
     , _linkManager(NULL)
     , _missionCommands(NULL)
     , _multiVehicleManager(NULL)
+    , _rosManager(NULL)
     , _virtualTabletJoystick(false)
     , _offlineEditingFirmwareTypeFact(QString(), "OfflineEditingFirmwareType", FactMetaData::valueTypeUint32, (uint32_t)MAV_AUTOPILOT_ARDUPILOTMEGA)
     , _offlineEditingFirmwareTypeMetaData(FactMetaData::valueTypeUint32)
@@ -72,6 +73,7 @@ void QGroundControlQmlGlobal::setToolbox(QGCToolbox* toolbox)
     _linkManager =          toolbox->linkManager();
     _missionCommands =      toolbox->missionCommands();
     _multiVehicleManager =  toolbox->multiVehicleManager();
+    _rosManager =           toolbox->rosManager();
 }
 
 
