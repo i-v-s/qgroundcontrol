@@ -30,7 +30,7 @@ QColor QGCMapPalette::_thumbJoystick[QGCMapPalette::_cColorGroups] = { QColor(25
 QColor QGCMapPalette::_text         [QGCMapPalette::_cColorGroups] = { QColor(255,255,255),     QColor(0,0,0) };
 
 QGCMapPalette::QGCMapPalette(QObject* parent) :
-    QObject(parent)
+    QObject(parent), _lightColors(false)
 {
 
 }
