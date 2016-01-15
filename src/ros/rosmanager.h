@@ -1,7 +1,8 @@
 #ifndef ROSMANAGER_H
 #define ROSMANAGER_H
-
+#include <mavlink.h>
 #include "QGCToolbox.h"
+#include "LinkInterface.h"
 
 enum ROSState
 {
@@ -11,10 +12,20 @@ enum ROSState
 };
 
 
+
+class ROSHost : public QObject
+{
+    Q_OBJECT
+};
+
 class ROSManager : public QGCTool
 {
     Q_OBJECT
     ROSState _rosState;
+    MultiVehicleManager * _multiVehicleManager;
+    MAVLinkProtocol * _mavlink;
+    LinkManager * _linkManager;
+    void _mavlinkMessageReceived(LinkInterface* link, mavlink_message_t message);
 public:
     virtual void setToolbox(QGCToolbox *toolbox);
     ROSManager(QGCApplication* app);

@@ -313,6 +313,48 @@ Item {
         visible:                    true
         spacing:                    ScreenTools.defaultFontPixelHeight
 
+        DropButton {
+            id:                     rosButton
+            dropDirection:          dropUp
+            buttonImage:            "/qmlimages/MapCenter.svg"
+            viewportMargins:        ScreenTools.defaultFontPixelWidth / 2
+            exclusiveGroup:         _dropButtonsExclusiveGroup
+            z:                      QGroundControl.zOrderWidgets
+
+            dropDownComponent: Component {
+                Column {
+                    spacing: ScreenTools.defaultFontPixelWidth
+
+                    QGCButton {
+                        id:         startROStestButton
+                        text:       "Launch test"
+                        enabled:    true
+                        onClicked: {
+                            _dropButtonsExclusiveGroup.current = null
+                            QGroundControl.rosManager.launch("test")
+                        }
+                    }
+                    QGCButton {
+                        id:         startROSestButton
+                        text:       "Launch Visual Estimation"
+                        enabled:    true
+                        onClicked: {
+                            _dropButtonsExclusiveGroup.current = null
+                            QGroundControl.rosManager.launch("ps3est")
+                        }
+                    }
+                    QGCButton {
+                        id:         stopROSButton
+                        text:       "Stop ROS"
+                        enabled:    true
+                        onClicked: {
+                            _dropButtonsExclusiveGroup.current = null
+                            QGroundControl.rosManager.launch("[stop]")
+                        }
+                    }
+                }
+            }
+        }
         RoundButton {
             id:         mavrosButton
             //text:       "mavros"
@@ -334,7 +376,11 @@ Item {
             //text:       "svo"
             enabled:    true
             visible:    true
+            onClicked: {
+                QGroundControl.rosManager.launch("[stop]")
 
+
+            }
             /*property var activeVehicle: multiVehicleManager.activeVehicle
 
             onClicked: {
@@ -343,6 +389,8 @@ Item {
                 _flightMap.longitude = activeVehicle.longitude
             }*/
         }
+
+
     }
 
 }
