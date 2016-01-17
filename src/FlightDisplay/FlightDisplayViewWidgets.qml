@@ -34,6 +34,8 @@ import QGroundControl.Controls      1.0
 import QGroundControl.Palette       1.0
 import QGroundControl.Vehicle       1.0
 import QGroundControl.FlightMap     1.0
+import QGroundControl.ROSManager    1.0
+import QGroundControl.ROSManager.SVOInfo 1.0
 
 Item {
 
@@ -356,41 +358,70 @@ Item {
             }
         }
         RoundButton {
-            id:         mavrosButton
+            id:         svoStart
             //text:       "mavros"
-            enabled:    true
+            enabled:    true//(QGroundControl.rosManager.svoStage > 2)
             visible:    true
+            //buttonImage:  () ? "/qmlimages/ZoomPlus.svg" : "/qmlimages/ZoomMinus.svg"
             onClicked: {
-                QGroundControl.rosManager.launch("test")
-
-
+                QGroundControl.rosManager.svoKey("s")
             }
-                //QGroundControl.
-//                _dropButtonsExclusiveGroup.current = null
-//                _flightMap.latitude  = activeVehicle.latitude
-//                _flightMap.longitude = activeVehicle.longitude
-//            }
         }
         RoundButton {
-            id:         svoButton
+            id:         svoReset
             //text:       "svo"
             enabled:    true
             visible:    true
             onClicked: {
-                QGroundControl.rosManager.launch("[stop]")
-
-
+                QGroundControl.rosManager.svoKey("r")
             }
-            /*property var activeVehicle: multiVehicleManager.activeVehicle
-
-            onClicked: {
-                _dropButtonsExclusiveGroup.current = null
-                _flightMap.latitude  = activeVehicle.latitude
-                _flightMap.longitude = activeVehicle.longitude
-            }*/
         }
-
-
+        property variant svoInfoTime: 0
+        property color svoColor: Qt.rgba(0,0,0,0.75)
+        property double svoFade: 0.0
+        Rectangle {
+            id:         svoStatus
+            width:      40
+            height:     40
+            radius:     10
+            color:      parent.svoColor
+            //text:       (QGroundControl.rosManager.svoStage * 1.0).toFixed(1)
+            enabled:    true
+        }
+        Timer {
+            id: rosTimer
+            running: true
+            repeat: true
+            interval: 30
+            onTriggered: {
+                var pt = QGroundControl.rosManager.svoInfo.receivedTime
+                var sit = rosItem.svoInfoTime
+                if(pt !== sit)
+                {
+                    rosItem.svoInfoTime = pt
+                    rosItem.svoFade = 1.0
+                }
+                else
+                    rosItem.svoFade *= 0.95
+                var stage = QGroundControl.rosManager.svoInfo.stage
+                var fade = rosItem.svoFade
+                switch(stage)
+                {
+                case 0:
+                    rosItem.svoColor = "#000";
+                    break;
+                case 1:
+                case 2:
+                    rosItem.svoColor = Qt.rgba(0.0, 0.0, fade, 0.75);
+                    break;
+                case 3:
+                    rosItem.svoColor = Qt.rgba(0.0, fade, 0.0, 0.75);
+                    break;
+                case 4:
+                    rosItem.svoColor = Qt.rgba(fade, 0.0, 0.0, 0.75);
+                    break;
+                }
+            }
+        }
     }
-
 }
