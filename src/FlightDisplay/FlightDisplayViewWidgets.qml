@@ -381,12 +381,19 @@ Item {
         property double svoFade: 0.0
         Rectangle {
             id:         svoStatus
-            width:      40
+            width:      30 + QGroundControl.rosManager.svoInfo.numMatches / 2
             height:     40
             radius:     10
             color:      parent.svoColor
             //text:       (QGroundControl.rosManager.svoStage * 1.0).toFixed(1)
             enabled:    true
+            Label {
+                id: svoMatches
+                color: "#000"
+                font.pointSize: 24
+                text: QGroundControl.rosManager.svoInfo.numMatches.toFixed(0)
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
         Timer {
             id: rosTimer

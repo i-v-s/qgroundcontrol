@@ -110,12 +110,23 @@ void SVOInfo::onMessage(const mavlink_rpg_svo_info_t &info)
     _receivedTime = QDateTime::currentDateTime().toMSecsSinceEpoch();
     emit receivedTimeChanged(_receivedTime);
     if(_info.num_matches != info.num_matches)
+    {
+        _info.num_matches = info.num_matches;
         emit numMatchesChanged(info.num_matches);
+    }
     if(_info.processing_time != info.processing_time)
+    {
+        _info.processing_time = info.processing_time;
         emit processingTimeChanged(info.processing_time);
+    }
     if(_info.stage != info.stage)
+    {
+        _info.stage = info.stage;
         emit stageChanged(info.stage);
+    }
     if(_info.tracking_quality != info.tracking_quality)
+    {
+        _info.tracking_quality = info.tracking_quality;
         emit trackingQualityChanged(info.tracking_quality);
-    _info = info;
+    }
 }
