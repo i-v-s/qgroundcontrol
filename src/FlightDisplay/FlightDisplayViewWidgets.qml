@@ -329,16 +329,25 @@ Item {
 
                     QGCButton {
                         id:         startROStestButton
-                        text:       "Launch test"
+                        text:       "Launch MAVROS+CAM+Record"
                         enabled:    true
                         onClicked: {
                             _dropButtonsExclusiveGroup.current = null
-                            QGroundControl.rosManager.launch("test")
+                            QGroundControl.rosManager.launch("mavros_cam_rec")
+                        }
+                    }
+                    QGCButton {
+                        id:         startSMRButton
+                        text:       "Launch SVO+MAVROS+Record"
+                        enabled:    true
+                        onClicked: {
+                            _dropButtonsExclusiveGroup.current = null
+                            QGroundControl.rosManager.launch("ps3est_rec")
                         }
                     }
                     QGCButton {
                         id:         startROSestButton
-                        text:       "Launch Visual Estimation"
+                        text:       "Launch SVO+MAVROS"
                         enabled:    true
                         onClicked: {
                             _dropButtonsExclusiveGroup.current = null
